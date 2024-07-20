@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{688780df-9c9e-482a-abb4-5093b471cbcb}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql150DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -64,5 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Boxer.DB.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dbo\Tables\SeedOrdersScript.sql" />
   </ItemGroup>
 </Project>
