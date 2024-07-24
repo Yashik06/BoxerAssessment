@@ -30,22 +30,5 @@ namespace Boxer.DL.DTOProperties
         [Display(Name = "Delivery Date", Prompt = "Delivery Date")]
         public DateTime DeliveryDate { get; set; }
 
-
-        //[NotMapped]
-        //public List<SelectListItem> Suppliers { get; } = new List<SelectListItem>
-        //{
-        //    new SelectListItem { Text = "Please select a supplier", Disabled = true, Selected = true },
-        //    new SelectListItem { Value = "FreshFarm", Text = "FreshFarm" },
-        //    new SelectListItem { Value = "FruitWorld", Text = "FruitWorld" },
-        //    new SelectListItem { Value = "VeggieMart", Text = "VeggieMart" },
-        //    new SelectListItem { Value = "MeatSupplier", Text = "MeatSupplier" },
-        //    new SelectListItem { Value = "BakeryCo", Text = "BakeryCo" },
-        //    new SelectListItem { Value = "DairyFarm", Text = "DairyFarm" },
-        //    new SelectListItem { Value = "GardenFresh", Text = "GardenFresh" },
-        //    new SelectListItem { Value = "FarmStand", Text = "FarmStand" },
-        //    new SelectListItem { Value = "DairyDelights", Text = "DairyDelights" },
-        //    new SelectListItem { Value = "FarmEggs", Text = "FarmEggs" }
-        //};
-
     }
 }

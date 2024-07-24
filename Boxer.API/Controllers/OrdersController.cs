@@ -18,48 +18,48 @@ namespace Boxer.API.Controllers
         private readonly IOrdersService _ordersService;
 
 
-        public OrdersController(IOrdersService auditFindingsService)
+        public OrdersController(IOrdersService ordersService)
         {
-            _ordersService = auditFindingsService ?? throw new ArgumentNullException(nameof(auditFindingsService));
+            _ordersService = ordersService ?? throw new ArgumentNullException(nameof(ordersService));
         }
 
 
         [HttpGet]
         public async Task<ActionResult<List<Orders>>> GetAllOrders()
         {
-            var auditFindingsList = await _ordersService.GetAllOrders();
-            return Ok(auditFindingsList);
+            var ordersList = await _ordersService.GetAllOrders();
+            return Ok(ordersList);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Orders>> GetOrdersById(int id)
         {
-            var auditFindings = await _ordersService.GetOrderById(id);
-            if (auditFindings == null)
+            var orders = await _ordersService.GetOrderById(id);
+            if (orders == null)
             {
                 return NotFound();
             }
-            return Ok(auditFindings);
+            return Ok(orders);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddOrders(Orders auditFindings)
+        public async Task<IActionResult> AddOrders(Orders orders)
         {
-            await _ordersService.AddOrder(auditFindings);
-            return Ok(auditFindings);
+            await _ordersService.AddOrder(orders);
+            return Ok(orders);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateOrders(int id, Orders auditFindings)
+        public async Task<IActionResult> UpdateOrders(int id, Orders orders)
         {
-            if (id != auditFindings.OrderID)
+            if (id != orders.OrderID)
             {
                 return BadRequest();
             }
 
             try
             {
-                await _ordersService.UpdateOrder(auditFindings);
+                await _ordersService.UpdateOrder(orders);
             }
             catch (Exception)
             {
