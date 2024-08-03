@@ -1,11 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-
-var builder = WebApplication.CreateBuilder(args);
-
-
-// var to hold connection string to DB
-var connectionString = builder.Configuration.GetConnectionString("Boxer.DB") ?? throw new InvalidOperationException("Connection string 'Boxer.DB' not found.");
+﻿var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
