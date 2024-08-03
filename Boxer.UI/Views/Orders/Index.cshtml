@@ -7,10 +7,11 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create new order</a>
-    <a class="float-end" asp-controller="CSVOrders" asp-action="UploadCsv">Create order with CSV</a>
+    <a class="btn btn-success" asp-action="Create">Create new order</a>
+    <a class="btn btn-warning float-end" asp-controller="OrdersFilter">Filter Orders</a>
+    <a class="btn btn-info float-end me-5" asp-controller="CSVOrders" asp-action="UploadCsv">Create order with CSV</a>
 </p>
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th>
@@ -38,36 +39,37 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Items)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                R @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Supplier)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeliveryDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.OrderID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.OrderID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.OrderID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Items)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    R @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Supplier)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryDate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.OrderID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.OrderID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.OrderID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 

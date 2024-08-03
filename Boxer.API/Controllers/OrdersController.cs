@@ -25,9 +25,41 @@ namespace Boxer.API.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<List<Orders>>> GetAllOrders()
+        public async Task<ActionResult<List<Orders>>> GetAllOrders
+        (
+            int? startOrderNumber = null,
+            int? endOrderNumber = null,
+            string? supplierName = null,
+            DateTime? startDate = null,
+            DateTime? endDate = null
+        )
         {
             var ordersList = await _ordersService.GetAllOrders();
+
+            // Apply order number range filtering
+            if (startOrderNumber.HasValue && endOrderNumber.HasValue)
+            {
+                ordersList = ordersList.Where(o => o.OrderNumber >= startOrderNumber.Value && o.OrderNumber <= endOrderNumber.Value).ToList();
+            }
+
+            // Apply supplier name filtering
+            if (!string.IsNullOrWhiteSpace(supplierName))
+            {
+                ordersList = ordersList.Where(o => o.Supplier.Equals(supplierName, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            // Apply date range filtering
+            if (startDate.HasValue && endDate.HasValue)
+            {
+                ordersList = ordersList.Where(o => o.Date >= startDate.Value && o.Date <= endDate.Value).ToList();
+            }
+
+            // Apply date range filtering
+            if (startDate.HasValue)
+            {
+                ordersList = ordersList.Where(o => o.Date >= startDate.Value).ToList();
+            }
+
             return Ok(ordersList);
         }
 

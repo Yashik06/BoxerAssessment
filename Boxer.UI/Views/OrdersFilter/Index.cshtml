@@ -1,0 +1,111 @@
+﻿@model IEnumerable<Boxer.UI.Models.Orders>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form asp-action="Index" method="get">
+    <div class="row m-0">
+        <div class="col-4">
+            <div class="row m-0 text-primary">
+                <div class="form-floating col-6 p-0 ">
+                    <input type="number" class="form-control border-primary" placeholder="1000" id="startOrderNumber" name="startOrderNumber">
+                    <label for="startOrderNumber">Start Order Number</label>
+                </div>
+                <div class="form-floating col-6 p-0">
+                    <input type="number" class="form-control border-primary" placeholder="1000" id="endOrderNumber" name="endOrderNumber">
+                    <label for="endOrderNumber">End Order Number</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="row m-0 text-warning">
+                <div class="form-floating col-6 p-0">
+                    <input type="date" class="form-control border-warning" placeholder="1000" id="startDate" name="startDate">
+                    <label for="startDate">Start Date</label>
+                </div>
+                <div class="form-floating col-6 p-0">
+                    <input type="date" class="form-control border-warning" placeholder="1000" id="endDate" name="endDate">
+                    <label for="endDate">End Date</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="row m-0">
+                <div class="form-floating col-6 p-0 text-danger">
+                    <input type="text" class="form-control border-danger" placeholder="supplierName" id="supplierName" name="supplierName">
+                    <label for="supplierName">Supplier Name</label>
+                </div>
+                <div class="form-floating col-6 p-0">
+                    <a class="btn btn-danger float-end" asp-action="Index">Reset</a>
+                    <button class="btn btn-warning float-end" type="submit">Filter</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="text-primary">
+                @Html.DisplayNameFor(model => model.OrderNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th class="text-warning">
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th class="text-danger">
+                @Html.DisplayNameFor(model => model.Supplier)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Items)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    R @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Supplier)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryDate)
+                </td>
+                <td>
+                    <a asp-controller="Orders" asp-action="Edit" asp-route-id="@item.OrderID">Edit</a> |
+                    <a asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderID">Details</a> |
+                    <a asp-controller="Orders" asp-action="Delete" asp-route-id="@item.OrderID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

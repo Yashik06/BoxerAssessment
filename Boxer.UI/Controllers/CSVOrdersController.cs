@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Boxer.UI.Data;
 using Boxer.UI.Models;
 using System.Net.Http;
 using CsvHelper;

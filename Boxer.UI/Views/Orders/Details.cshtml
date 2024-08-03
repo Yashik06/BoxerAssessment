@@ -55,6 +55,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.OrderID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <input type="button" value="Back" onclick="history.back()" class="btn btn-danger" />
+    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.OrderID">Edit</a> 
 </div>
