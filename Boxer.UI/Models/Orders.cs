@@ -15,23 +15,23 @@ namespace Boxer.UI.Models
         public int OrderNumber { get; set; }
 
         [Display(Name = "Items", Prompt = "Items")]
-        public string Items { get; set; }
+        public string? Items { get; set; }
 
         [Display(Name = "Quantity", Prompt = "Quantity")]
         public int Quantity { get; set; }
 
         [Display(Name = "Date", Prompt = "Date")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime Date { get; set; }
 
         [Display(Name = "Price (R)", Prompt = "Price")]
         public double Price { get; set; }
 
         [Display(Name = "Supplier", Prompt = "Supplier")]
-        public string Supplier { get; set; }
+        public string? Supplier { get; set; }
 
         [Display(Name = "Delivery Date", Prompt = "Delivery Date")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
         public DateTime DeliveryDate { get; set; }
 
 

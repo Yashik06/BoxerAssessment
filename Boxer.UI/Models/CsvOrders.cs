@@ -29,7 +29,7 @@ namespace Boxer.UI.Models
         {
             var results = new List<ValidationResult>();
 
-            // Example of additional complex validation (if needed)
+            // Validation to make sure that Delivery date is after Date of order
             if (DeliveryDate < Date)
             {
                 results.Add(new ValidationResult("Delivery Date cannot be earlier than the Order Date.", new[] { nameof(DeliveryDate) }));

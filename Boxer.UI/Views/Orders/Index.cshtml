@@ -4,8 +4,6 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
 <p>
     <a class="btn btn-success" asp-action="Create">Create new order</a>
     <a class="btn btn-warning float-end" asp-controller="OrdersFilter">Filter Orders</a>
@@ -64,9 +62,9 @@
                     @Html.DisplayFor(modelItem => item.DeliveryDate)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.OrderID">Edit</a> |
+                    <a asp-action="Edit" class="text-success" asp-route-id="@item.OrderID">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.OrderID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.OrderID">Delete</a>
+                    <a asp-action="Delete" class="text-danger" asp-route-id="@item.OrderID">Delete</a>
                 </td>
             </tr>
         }

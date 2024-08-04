@@ -57,4 +57,5 @@
 <div>
     <input type="button" value="Back" onclick="history.back()" class="btn btn-danger" />
     <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.OrderID">Edit</a> 
+    <a class="btn btn-danger float-end" asp-controller="OrdersExport" asp-action="ExportToPdf" asp-route-id="@Model?.OrderID">Export to PDF</a>
 </div>

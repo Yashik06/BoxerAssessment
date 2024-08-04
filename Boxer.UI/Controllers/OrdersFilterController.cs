@@ -30,6 +30,12 @@ namespace Boxer.UI.Controllers
         {
             var client = _httpClientFactory.CreateClient("Boxer.API");
 
+            ViewData["StartOrderNumber"] = startOrderNumber;
+            ViewData["EndOrderNumber"] = endOrderNumber;
+            ViewData["StartDate"] = startDate?.ToString("yyyy-MM-dd");
+            ViewData["EndDate"] = endDate?.ToString("yyyy-MM-dd");
+            ViewData["SupplierName"] = supplierName;
+
             try
             {
                 var url = $"api/Orders?startOrderNumber={startOrderNumber}&endOrderNumber={endOrderNumber}&supplierName={supplierName}&startDate={startDate:yyyy-MM-dd}&endDate={endDate:yyyy-MM-dd}";

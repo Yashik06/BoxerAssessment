@@ -10,11 +10,11 @@
         <div class="col-4">
             <div class="row m-0 text-primary">
                 <div class="form-floating col-6 p-0 ">
-                    <input type="number" class="form-control border-primary" placeholder="1000" id="startOrderNumber" name="startOrderNumber">
+                    <input type="number" class="form-control border-primary" placeholder="1000" id="startOrderNumber" name="startOrderNumber" value="@ViewData["StartOrderNumber"]">
                     <label for="startOrderNumber">Start Order Number</label>
                 </div>
                 <div class="form-floating col-6 p-0">
-                    <input type="number" class="form-control border-primary" placeholder="1000" id="endOrderNumber" name="endOrderNumber">
+                    <input type="number" class="form-control border-primary" placeholder="1000" id="endOrderNumber" name="endOrderNumber" value="@ViewData["EndOrderNumber"]">
                     <label for="endOrderNumber">End Order Number</label>
                 </div>
             </div>
@@ -22,11 +22,11 @@
         <div class="col-4">
             <div class="row m-0 text-warning">
                 <div class="form-floating col-6 p-0">
-                    <input type="date" class="form-control border-warning" placeholder="1000" id="startDate" name="startDate">
+                    <input type="date" class="form-control border-warning" placeholder="1000" id="startDate" name="startDate" value="@ViewData["StartDate"]">
                     <label for="startDate">Start Date</label>
                 </div>
                 <div class="form-floating col-6 p-0">
-                    <input type="date" class="form-control border-warning" placeholder="1000" id="endDate" name="endDate">
+                    <input type="date" class="form-control border-warning" placeholder="1000" id="endDate" name="endDate" value="@ViewData["EndDate"]">
                     <label for="endDate">End Date</label>
                 </div>
             </div>
@@ -34,12 +34,13 @@
         <div class="col-4">
             <div class="row m-0">
                 <div class="form-floating col-6 p-0 text-danger">
-                    <input type="text" class="form-control border-danger" placeholder="supplierName" id="supplierName" name="supplierName">
+                    <input type="text" class="form-control border-danger" placeholder="supplierName" id="supplierName" name="supplierName" value="@ViewData["SupplierName"]">
                     <label for="supplierName">Supplier Name</label>
                 </div>
                 <div class="form-floating col-6 p-0">
                     <a class="btn btn-danger float-end" asp-action="Index">Reset</a>
                     <button class="btn btn-warning float-end" type="submit">Filter</button>
+                    <button class="btn btn-success float-end" type="submit" formaction="/OrdersExport/ExportToCsv">Export to CSV</button>
                 </div>
             </div>
         </div>
@@ -101,9 +102,9 @@
                     @Html.DisplayFor(modelItem => item.DeliveryDate)
                 </td>
                 <td>
-                    <a asp-controller="Orders" asp-action="Edit" asp-route-id="@item.OrderID">Edit</a> |
+                    <a asp-controller="Orders" asp-action="Edit" class="text-success" asp-route-id="@item.OrderID">Edit</a> |
                     <a asp-controller="Orders" asp-action="Details" asp-route-id="@item.OrderID">Details</a> |
-                    <a asp-controller="Orders" asp-action="Delete" asp-route-id="@item.OrderID">Delete</a>
+                    <a asp-controller="Orders" asp-action="Delete" class="text-danger" asp-route-id="@item.OrderID">Delete</a>
                 </td>
             </tr>
         }
