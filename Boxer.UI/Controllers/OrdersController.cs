@@ -97,45 +97,46 @@ namespace Boxer.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Orders orders)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var client = _httpClientFactory.CreateClient("Boxer.API");
+                return View(orders); // Return the view with the validation errors
+            }
 
-                try
+            var client = _httpClientFactory.CreateClient("Boxer.API");
+
+            try
+            {
+                var response = await client.PostAsJsonAsync("api/Orders", orders);
+
+                if (response.IsSuccessStatusCode)
                 {
-                    var response = await client.PostAsJsonAsync("api/Orders", orders);
-
-                    if (response.IsSuccessStatusCode)
+                    // Extract OrderNumber from the response
+                    var createdOrder = await response.Content.ReadFromJsonAsync<Orders>();
+                    if (createdOrder != null)
                     {
-                        // Extract OrderNumber from the response
-                        var createdOrder = await response.Content.ReadFromJsonAsync<Orders>();
-                        if (createdOrder != null)
-                        {
-                            TempData["GeneratedOrderNumber"] = createdOrder.OrderNumber;
-                        }
-                        return RedirectToAction(nameof(Index));
+                        TempData["GeneratedOrderNumber"] = createdOrder.OrderNumber;
                     }
-                    else
-                    {
-                        TempData["ErrorMessage"] = "Error creating Order. Please try again.";
-                        return RedirectToAction("Error");
-                    }
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (HttpRequestException ex)
+                else
                 {
-                    if (ex.InnerException is System.Net.Sockets.SocketException)
-                    {
-                        TempData["ErrorMessage"] = "API is currently unavailable.";
-                        return RedirectToAction("Error");
-                    }
-                    else
-                    {
-                        TempData["ErrorMessage"] = ex.Message.ToString();
-                        return RedirectToAction("Error");
-                    }
+                    TempData["ErrorMessage"] = "Error creating Order. Please try again.";
+                    return RedirectToAction("Error");
                 }
             }
-            return View(orders);
+            catch (HttpRequestException ex)
+            {
+                if (ex.InnerException is System.Net.Sockets.SocketException)
+                {
+                    TempData["ErrorMessage"] = "API is currently unavailable.";
+                    return RedirectToAction("Error");
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = ex.Message.ToString();
+                    return RedirectToAction("Error");
+                }
+            }
         }
 
         // GET: Orders/Edit/5
@@ -181,39 +182,40 @@ namespace Boxer.UI.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var client = _httpClientFactory.CreateClient("Boxer.API");
+                return View(orders); // Return the view with the validation errors
+            }
 
-                try
+            var client = _httpClientFactory.CreateClient("Boxer.API");
+
+            try
+            {
+                var response = await client.PutAsJsonAsync($"api/Orders/{id}", orders);
+
+                if (response.IsSuccessStatusCode)
                 {
-                    var response = await client.PutAsJsonAsync($"api/Orders/{id}", orders);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        return RedirectToAction(nameof(Index));
-                    }
-                    else
-                    {
-                        TempData["ErrorMessage"] = "Error updating Order. Please try again.";
-                        return RedirectToAction("Error");
-                    }
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (HttpRequestException ex)
+                else
                 {
-                    if (ex.InnerException is System.Net.Sockets.SocketException)
-                    {
-                        TempData["ErrorMessage"] = "API is currently unavailable.";
-                        return RedirectToAction("Error");
-                    }
-                    else
-                    {
-                        TempData["ErrorMessage"] = ex.Message.ToString();
-                        return RedirectToAction("Error");
-                    }
+                    TempData["ErrorMessage"] = "Error updating Order. Please try again.";
+                    return RedirectToAction("Error");
                 }
             }
-            return View(orders);
+            catch (HttpRequestException ex)
+            {
+                if (ex.InnerException is System.Net.Sockets.SocketException)
+                {
+                    TempData["ErrorMessage"] = "API is currently unavailable.";
+                    return RedirectToAction("Error");
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = ex.Message.ToString();
+                    return RedirectToAction("Error");
+                }
+            }
         }
 
         // GET: Orders/Delete/5

@@ -39,6 +39,7 @@
         <div class="form-floating mb-3">
             <select asp-for="Supplier" asp-items="Model.Suppliers" class="form-select"></select>
             <label asp-for="Supplier"></label>
+            <span asp-validation-for="Supplier" class="text-danger"></span>
         </div>
         <div class="form-floating mb-3">
             <input asp-for="DeliveryDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />

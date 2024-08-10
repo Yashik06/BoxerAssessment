@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Boxer.UI.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Boxer.UI.Data;
-using Boxer.UI.Models;
 
 namespace Boxer.UI.Controllers
 {
@@ -28,13 +21,14 @@ namespace Boxer.UI.Controllers
             DateTime? endDate = null
         )
         {
-            var client = _httpClientFactory.CreateClient("Boxer.API");
-
+            // Return the values that the user entered before pressing filter
             ViewData["StartOrderNumber"] = startOrderNumber;
             ViewData["EndOrderNumber"] = endOrderNumber;
             ViewData["StartDate"] = startDate?.ToString("yyyy-MM-dd");
             ViewData["EndDate"] = endDate?.ToString("yyyy-MM-dd");
             ViewData["SupplierName"] = supplierName;
+
+            var client = _httpClientFactory.CreateClient("Boxer.API");
 
             try
             {
@@ -58,11 +52,9 @@ namespace Boxer.UI.Controllers
             }
         }
 
-        // Error action to display error messages
         public IActionResult Error()
         {
             var errorMessage = TempData["ErrorMessage"] as string;
-            // Creates an instance of ErrorViewModel and set the ErrorMessage property
             var errorViewModel = new ErrorViewModel { ErrorMessage = errorMessage };
             return View(errorViewModel);
         }

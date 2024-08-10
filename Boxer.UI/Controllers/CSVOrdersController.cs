@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Boxer.UI.Models;
-using System.Net.Http;
+﻿using Boxer.UI.Models;
 using CsvHelper;
-using System.Globalization;
 using CsvHelper.Configuration;
-using System.Text.RegularExpressions;
-using System.Reflection.Metadata;
+using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace Boxer.UI.Controllers
 {
@@ -30,7 +21,6 @@ namespace Boxer.UI.Controllers
         {
             return View();
         }
-
 
         private CsvConfiguration GetCsvConfiguration()
         {
@@ -51,7 +41,6 @@ namespace Boxer.UI.Controllers
                 return csv.GetRecords<CsvOrders>().ToList();
             }
         }
-
 
         // Action to handle the CSV file upload
         [HttpPost]
@@ -119,7 +108,7 @@ namespace Boxer.UI.Controllers
         }
 
 
-        // Method to submit an order asynchronously and return the generated OrderNumber
+        // Method to submit an order and return the generated OrderNumber
         private async Task<int?> SubmitOrderAsync(CsvOrders order)
         {
             var client = _httpClientFactory.CreateClient("Boxer.API");
@@ -130,26 +119,20 @@ namespace Boxer.UI.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
-                    // Assuming the API returns the created order with OrderNumber
                     var createdOrder = await response.Content.ReadFromJsonAsync<Orders>();
                     return createdOrder?.OrderNumber;
                 }
                 else
                 {
-                    // Log the error or handle it as needed
                     var errorContent = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine($"Error submitting order: {response.StatusCode}, Content: {errorContent}");
-                    // Inform the user of the failure
                     TempData["ErrorMessage"] = "An error occurred while submitting your order. Please try again later.";
                 }
 
             }
             catch (HttpRequestException ex)
             {
-                // Log the exception details
                 Console.WriteLine($"HttpRequestException: {ex.Message}");
 
-                // Handle specific cases like network issues
                 if (ex.InnerException is System.Net.Sockets.SocketException)
                 {
                     TempData["ErrorMessage"] = "Unable to reach the server. Please check your internet connection and try again.";
@@ -161,11 +144,10 @@ namespace Boxer.UI.Controllers
             }
             catch (Exception ex)
             {
-                // Log general exceptions
                 Console.WriteLine($"Exception: {ex.Message}");
                 TempData["ErrorMessage"] = "An unexpected error occurred. Please try again later.";
             }
-            return null; // Return null if there was an error
+            return null;
         }
     }
 }

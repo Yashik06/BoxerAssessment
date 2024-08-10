@@ -23,7 +23,8 @@ namespace Boxer.API.Controllers
             _ordersService = ordersService ?? throw new ArgumentNullException(nameof(ordersService));
         }
 
-
+        // Action to Get all orders
+        // Using optional parameters depending on user input
         [HttpGet]
         public async Task<ActionResult<List<Orders>>> GetAllOrders
         (

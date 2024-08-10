@@ -2,11 +2,6 @@
 using Boxer.DL;
 using Boxer.DL.DTOProperties;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Boxer.BL.Services
 {
@@ -31,8 +26,8 @@ namespace Boxer.BL.Services
 
         public async Task AddOrder(Orders orders)
         {
-            // Fetch the next audit finding number
-            // MaxAsync() method to retrieve the maximum audit number from the database.
+            // Fetch the next order number
+            // MaxAsync() method to retrieve the maximum order number from the database.
             // (int?)a.OrderNumber extracts the OrderNumber property and converts it to a nullable integer (int?) to handle cases where there are no records yet.
             // The ?? 999 expression ensures that if there are no existing order numbers, the default value of 1000 will be used as the starting point for the next order number.
             int nextOrderNumber = await _context.Orders.MaxAsync(a => (int?)a.OrderNumber) ?? 9999;

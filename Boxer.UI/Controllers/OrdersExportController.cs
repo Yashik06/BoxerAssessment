@@ -28,6 +28,7 @@ namespace Boxer.UI.Controllers
             };
         }
 
+        // Action that exports Orders to a CSV and lets the user save the file (using optional Parameters)
         public async Task<IActionResult> ExportToCsv(
             int? startOrderNumber = null,
             int? endOrderNumber = null,
@@ -72,7 +73,6 @@ namespace Boxer.UI.Controllers
         {
             public OrdersMap()
             {
-                // Exclude OrderID field
                 Map(m => m.OrderID).Ignore();
                 Map(m => m.OrderNumber).Name("Order Number");
                 Map(m => m.Items).Name("Items");
@@ -84,7 +84,7 @@ namespace Boxer.UI.Controllers
             }
         }
 
-
+        // Action that exports Orders to a PFF and lets the user save the file
         public async Task<IActionResult> ExportToPdf(int id)
         {
             var client = _httpClientFactory.CreateClient("Boxer.API");
@@ -118,6 +118,7 @@ namespace Boxer.UI.Controllers
             }
         }
 
+        // Method to create the PDF with the order provided 
         private byte[] GeneratePdf(Orders order)
         {
             using (var memoryStream = new MemoryStream())
@@ -143,7 +144,6 @@ namespace Boxer.UI.Controllers
 
                     document.Close();
                 }
-
                 return memoryStream.ToArray();
             }
         }
